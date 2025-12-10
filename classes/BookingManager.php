@@ -47,6 +47,13 @@
             $this->store->write($bookings);
         }
 
+        public function deleteUser(int $user): void
+        {
+            $bookings = $this->all();
+            $bookings = array_values(array_filter($bookings, fn($b) => !($b['user'] === $user)));
+            $this->store->write($bookings);
+        }
+
         public function nextId(): int
         {
             $max = 0;

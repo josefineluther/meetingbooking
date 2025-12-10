@@ -15,6 +15,7 @@ $time = trim($_POST['time']);
 $alreadyBooked = false;
 
 $redirect = $_POST['redirect'] ?? '/Meetingbooking/meetingrooms.php';
+$redirect = strtok($_POST['redirect'], '?');
 
 foreach ($bookings as $b) {
     if ($b['room'] === $room && $b['date'] === $date && $b['time'] === $time) {

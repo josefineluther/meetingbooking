@@ -12,8 +12,18 @@ $meetingrooms = $mm->all();
 
 $allTimes = ['08:00-10:00', '10:00-12:00', '12:00-14:00', '14:00-16:00'];
 
+$user = $_COOKIE['userid'] ?? 0;
+
+if (!$user) {
+    header("Location: /Meetingbooking/index.php");
+    exit;
+}
+
 $editId = $_GET['edit'] ?? null;
 $bookingId = $_GET['booking'] ?? null;
+
+if (isset($_SESSION['error'])) unset($_SESSION['error']);
+if (isset($_SESSION['success'])) unset($_SESSION['success']);
 ?>
 
 <p>Här kan du boka, lägga till, ta bort eller ändra mötesrum</p>
@@ -26,16 +36,13 @@ $bookingId = $_GET['booking'] ?? null;
             <input name="name">
             <h3>Antal platser</h3>
             <input type="number" name="capacity">
-            <h3>Faciliteter</h3>
-            <label>
-                <input type="checkbox" name="tv" value="1">
-                TV finns
-            </label>
-            <label>
-                <input type="checkbox" name="audio" value="1">
-                Ljud finns
-            </label>
-            <button>Lägg till</button>
+            <h3 class="facilities">Faciliteter</h3>
+            <input id="tv2" type="checkbox" name="tv" value="1">
+            <label for="tv2">TV finns</label>
+
+            <input id="audio2" type="checkbox" name="audio" value="1">
+            <label for="audio2">Ljud finns</label>
+            <button class="add-button">Lägg till</button>
         </form>
     </div>
 
@@ -46,14 +53,12 @@ $bookingId = $_GET['booking'] ?? null;
             <div style="padding: 10px; background: #fee; border: 1px solid #f99; border-radius: 6px; margin-bottom: 20px;">
                 <?= $_SESSION['error'] ?>
             </div>
-            <?php unset($_SESSION['error']); ?>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['success'])): ?>
             <div style="padding: 10px; background: #efe; border: 1px solid #9f9; border-radius: 6px;margin-bottom: 20px;">
                 <?= $_SESSION['success'] ?>
             </div>
-            <?php unset($_SESSION['success']); ?>
         <?php endif; ?>
 
         <?php foreach ($meetingrooms as $m): ?>
@@ -68,15 +73,14 @@ $bookingId = $_GET['booking'] ?? null;
                         <h3>Antal platser</h3>
                         <input type="number" name="capacity" value="<?= $m['capacity'] ?>">
 
-                        <h3>Faciliteter</h3>
-                        <label>
-                            <input type="checkbox" name="tv" value="1">
-                            TV finns
-                        </label>
-                        <label>
-                            <input type="checkbox" name="audio" value="1">
-                            Ljud finns
-                        </label>
+                        <h3 class="facilities">Faciliteter</h3>
+
+                        <input type="checkbox" id="tv3" name="tv" value="1" <?= $m['tv'] ? 'checked' : '' ?>>
+                        <label for="tv3">TV finns</label>
+
+                        <input type="checkbox" id="audio3" name="audio" value="1" <?= $m['audio'] ? 'checked' : '' ?>>
+                        <label for="audio3">Ljud finns</label>
+
                         <input type="hidden" name="redirect" value="<?= $_SERVER['REQUEST_URI'] ?>">
                         <button type="submit">Spara ändringar</button>
                         <a href="<?= '/Meetingbooking/meetingrooms.php#' . $m['id'] ?>">Avbryt</a>
@@ -90,7 +94,6 @@ $bookingId = $_GET['booking'] ?? null;
                     <p>TV: <?= $m['tv'] ? 'Ja' : 'Nej' ?> | Ljud: <?= $m['audio'] ? 'Ja' : 'Nej' ?></p>
                     <form action="booking_add.php" method="post">
                         <input type="hidden" name="redirect" value="<?= $_SERVER['REQUEST_URI'] ?>">
-                        <?php if (isset($_SESSION['error'])) unset($_SESSION['error']); ?>
                         <div style="display: grid; grid-template-columns: 1fr; gap: 10px;">
                             <label for="date">Välj dag:</label>
                             <input type="date" id="date" name="date" required min="<?= date('Y-m-d'); ?>">

@@ -1,8 +1,22 @@
 <?php
 session_start();
 
+$username = null;
+
+$user = $_COOKIE['userid'] ?? 0;
+
+$usersJson = file_get_contents(__DIR__ . '/data/users.json');
+$users = json_decode($usersJson, true) ?: [];
+
+foreach ($users as $u) {
+  if ($u['id'] == $user) {
+    $username = $u['username'];
+    break;
+  }
+}
+
 $pageTitle = 'Mötesbokning';
-$pageHeading = 'Mötesbokning';
+$pageHeading = 'Välkommen ' . $username . '!';
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/classes/MeetingroomManager.php';
 require_once __DIR__ . '/classes/BookingManager.php';
@@ -15,6 +29,11 @@ $bookedRooms = $bm->all();
 
 $user = $_COOKIE['userid'] ?? 0;
 
+if (!$user) {
+  header("Location: /Meetingbooking/index.php");
+  exit;
+}
+
 $myBookings = array_filter($bookedRooms, fn($b) => $b['user'] == $user);
 
 $roomsById = [];
@@ -26,6 +45,7 @@ $allTimes = ['08:00-10:00', '10:00-12:00', '12:00-14:00', '14:00-16:00'];
 
 $editId = $_GET['edit'] ?? null;
 $bookingId = $_GET['booking'] ?? null;
+
 ?>
 
 <div style="display: grid; gap: 100px; grid-template-columns: 1fr 1fr; padding: 50px;">
@@ -56,14 +76,14 @@ $bookingId = $_GET['booking'] ?? null;
     <h2>Mötesrum</h2>
 
     <?php if (isset($_SESSION['error'])): ?>
-      <div style="padding: 10px; background: #fee; border: 1px solid #f99; border-radius: 6px; margin-bottom: 20px;">
+      <div class="error">
         <?= $_SESSION['error'] ?>
       </div>
       <?php unset($_SESSION['error']); ?>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['success'])): ?>
-      <div style="padding: 10px; background: #efe; border: 1px solid #9f9; border-radius: 6px;margin-bottom: 20px;">
+      <div class="success">
         <?= $_SESSION['success'] ?>
       </div>
       <?php unset($_SESSION['success']); ?>
@@ -81,15 +101,14 @@ $bookingId = $_GET['booking'] ?? null;
             <h3>Antal platser</h3>
             <input type="number" name="capacity" value="<?= $m['capacity'] ?>">
 
-            <h3>Faciliteter</h3>
-            <label>
-              <input type="checkbox" name="tv" value="1">
-              TV finns
-            </label>
-            <label>
-              <input type="checkbox" name="audio" value="1">
-              Ljud finns
-            </label>
+            <h3 class="facilities">Faciliteter</h3>
+
+            <input type="checkbox" id="tv" name="tv" value="1" <?= $m['tv'] ? 'checked' : '' ?>>
+            <label for="tv">TV finns</label>
+
+            <input type="checkbox" id="audio" name="audio" value="1" <?= $m['audio'] ? 'checked' : '' ?>>
+            <label for="audio">Ljud finns</label>
+
             <input type="hidden" name="redirect" value="<?= $_SERVER['REQUEST_URI'] ?>">
             <button type="submit">Spara ändringar</button>
             <a href="<?= '/Meetingbooking/dashboard.php#' . $m['id'] ?>">Avbryt</a>

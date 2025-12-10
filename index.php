@@ -1,9 +1,20 @@
 <?php
+session_start();
 $pageTitle = 'Logga in';
 $pageHeading = 'Logga in';
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/classes/UserManager.php';
 $um = new UserManager(__DIR__ . '/data/users.json');
+
+if (isset($_SESSION['error'])) unset($_SESSION['error']);
+if (isset($_SESSION['success'])) unset($_SESSION['success']);
+
+$user = $_COOKIE['userid'] ?? 0;
+
+if ($user) {
+    header("Location: /Meetingbooking/dashboard.php");
+    exit;
+}
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -35,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="password">Lösenord</label>
         <input type="password" id="password" name="password" required>
 
-        <button type="submit">Logga in</button>
+        <button class="add-button" type="submit">Logga in</button>
     </form>
 </div>
 

@@ -1,7 +1,13 @@
 :root {
-  --white: #fff;
-  --black: #333;
-  --grey: #898989;
+  --white: #f2e2e8;
+  --grey: #381926;
+  --hoverdark: #843b58;
+  --hoverlight: #dc81a7;
+  --black: #d6588d;
+}
+
+* {
+  color: var(--black);
 }
 
 h1 {
@@ -14,11 +20,84 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #cbcbcb;
+  background: #381926;
 }
 
-input[type='checkbox'] {
-  margin: 1em 0;
+.error {
+  color: var(--grey);
+  padding: 10px;
+  background: rgb(255, 179, 179);
+  border: 1px solid rgb(255, 113, 113);
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.success {
+  color: var(--grey);
+  padding: 10px;
+  background: #efe;
+  border: 1px solid #9f9;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+[type='checkbox'] {
+  opacity: 0;
+}
+
+[type='checkbox'] + label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 25px;
+}
+
+[type='checkbox'] + label::before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  outline: 1px solid var(--grey);
+  border-radius: 2px;
+  background: var(--white);
+  left: 0;
+  top: 5px;
+}
+
+[type='checkbox']:checked + label::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  background-color: var(--white);
+  background-image: url('/Meetingbooking/assets/img/checkbox.png');
+  background-size: contain;
+  left: 0;
+  top: 5px;
+  transform: scale(1);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+[type='checkbox']:not(:checked) + label::after {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 2px;
+  background-color: var(--white);
+  background-image: url('/Meetingbooking/assets/img/checkbox.png');
+  background-size: contain;
+  left: 0;
+  top: 5px;
+  transform: scale(0);
+  opacity: 0;
+}
+
+.facilities {
+  margin-bottom: 0;
 }
 
 .app-header__bar {
@@ -48,10 +127,11 @@ input[type='checkbox'] {
   padding: 8px 12px;
   color: var(--black);
   text-decoration: none;
+  font-weight: bold;
 }
 
 .app-header__link:hover {
-  color: var(--grey);
+  color: var(--hoverlight);
 }
 
 main {
@@ -71,30 +151,33 @@ a:hover {
   color: var(--grey);
 }
 
-input {
+input,
+select {
+  background: var(--white);
   padding: 12px;
-  border: 1px solid var(--black);
+  border: 1px solid var(--grey);
   border-radius: 6px;
   font-size: 12px;
-  color: var(--black);
+  color: var(--grey);
 }
 
 select {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-
-  padding: 12px;
-  font-size: 13.5px;
-
-  border: 1px solid var(--black);
-  border-radius: 6px;
-
-  color: var(--black);
 }
 
 .logout {
-  text-align: right;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  margin: 0 1em;
+}
+
+.logged-in {
+  text-align: center;
+  margin: 1em 0 0 0;
 }
 
 .login-box {
@@ -129,25 +212,39 @@ select {
   width: 100%;
 }
 
+button {
+  width: 100%;
+  background-color: var(--grey);
+  color: var(--white);
+}
+
+.app-header__link--logout,
+.add-button {
+  background-color: var(--black);
+  color: var(--grey);
+}
+
 button,
 .app-header__link--logout {
+  text-align: center;
   font-size: 14px;
   font-weight: bold;
   padding: 12px;
-  width: 100%;
-  background-color: var(--black);
-  color: var(--white);
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  margin: 1em 0;
+  margin: 2em 0 1em 0;
   transition: background-color 0.18s ease-in-out;
 }
 
-button:hover,
-.app-header__link--logout:hover {
-  color: var(--white);
-  background-color: var(--grey);
+.app-header__link--logout:hover,
+.add-button:hover {
+  color: var(--grey);
+  background-color: var(--hoverlight);
+}
+
+button:hover {
+  background-color: var(--hoverdark);
 }
 
 .login-form {
@@ -159,17 +256,35 @@ button:hover,
 
 .content-card {
   width: 30vw;
-  background: #fff;
+  background: var(--white);
   margin-bottom: 20px;
   border-radius: 6px;
   padding: 0.5em 1.5em 1em 1.5em;
+  color: var(--grey);
+}
+
+.content-card p,
+.content-card h3,
+.content-card label,
+.content-card a {
+  color: var(--grey);
+}
+
+form a {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+
+.content-card a:hover {
+  color: var(--hoverdark);
 }
 
 footer {
   margin-top: auto;
   min-height: 45px;
   background-color: var(--black);
-  color: var(--white);
+  color: var(--grey);
   text-align: center;
   padding: 50px;
   font-size: 14px;

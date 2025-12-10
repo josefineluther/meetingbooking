@@ -6,9 +6,18 @@ $pageHeading = 'Användare';
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/auth_guard.php';
 require_once __DIR__ . '/classes/UserManager.php';
+require_once __DIR__ . '/classes/BookingManager.php';
 require_once __DIR__ . '/classes/User.php';
 
 $um = new UserManager(__DIR__ . '/data/users.json');
+$bm = new BookingManager(__DIR__ . '/data/booked.json');
+
+$user = $_COOKIE['userid'] ?? 0;
+
+if (!$user) {
+    header("Location: /Meetingbooking/index.php");
+    exit;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'add') {
     $username = trim($_POST['username'] ?? '');
@@ -39,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'del')
     $id = (int)($_POST['id'] ?? 0);
     if ($id > 0) {
         $um->delete($id);
+        $bm->deleteUser($id);
     }
 
     $_SESSION['success'] = "Användaren har raderats";
@@ -62,7 +72,7 @@ $editId = $_GET['edit'] ?? null;
             <input name="username" required>
             <h3>Lösenord</h3>
             <input name="password" required>
-            <button type="submit">Skapa användare</button>
+            <button class="add-button" style="margin-top: 2em;" type="submit">Skapa användare</button>
         </form>
     </div>
 

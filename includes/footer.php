@@ -1,11 +1,10 @@
+</main>
 
-        </main>
+<footer>
 
-        <footer>
+    <?php echo date('Y') ?> Mötesbokning
 
-            <?php echo date('Y') ?> Mötesbokning
-
-        </footer>
-    </body>
+</footer>
+</body>
 
 </html>
