@@ -1,0 +1,23 @@
+[
+    {
+        "id": 4,
+        "name": "Flod",
+        "capacity": 3,
+        "tv": false,
+        "audio": false
+    },
+    {
+        "id": 7,
+        "name": "Tall",
+        "capacity": 8,
+        "tv": true,
+        "audio": false
+    },
+    {
+        "id": 8,
+        "name": "Solsken",
+        "capacity": 9223372036854775807,
+        "tv": false,
+        "audio": false
+    }
+]
