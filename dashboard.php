@@ -48,7 +48,7 @@ $bookingId = $_GET['booking'] ?? null;
 
 ?>
 
-<div style="display: grid; gap: 100px; grid-template-columns: 1fr 1fr; padding: 50px;">
+<div style="display: grid; gap: 100px; grid-template-columns: 1fr 1fr; padding: 30px;">
   <div>
     <h2>Mina bokningar</h2>
     <?php if (empty($myBookings)): ?>

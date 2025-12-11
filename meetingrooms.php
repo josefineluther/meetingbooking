@@ -28,7 +28,7 @@ if (isset($_SESSION['success'])) unset($_SESSION['success']);
 
 <p>Här kan du boka, lägga till, ta bort eller ändra mötesrum</p>
 
-<div style="display: grid; gap: 100px; grid-template-columns: 1fr 1fr; padding: 50px;">
+<div style="display: grid; gap: 100px; grid-template-columns: 1fr 1fr; padding: 30px;">
     <div>
         <h2>Lägg till rum</h2>
         <form action="meetingroom_add.php" method="post" style="display: flex; flex-direction: column;">
@@ -50,13 +50,13 @@ if (isset($_SESSION['success'])) unset($_SESSION['success']);
         <h2>Mötesrum</h2>
 
         <?php if (isset($_SESSION['error'])): ?>
-            <div style="padding: 10px; background: #fee; border: 1px solid #f99; border-radius: 6px; margin-bottom: 20px;">
+            <div class="error">
                 <?= $_SESSION['error'] ?>
             </div>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['success'])): ?>
-            <div style="padding: 10px; background: #efe; border: 1px solid #9f9; border-radius: 6px;margin-bottom: 20px;">
+            <div class="success">
                 <?= $_SESSION['success'] ?>
             </div>
         <?php endif; ?>

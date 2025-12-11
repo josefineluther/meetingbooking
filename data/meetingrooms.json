@@ -1,23 +1,37 @@
 [
-    {
-        "id": 4,
-        "name": "Flod",
-        "capacity": 3,
-        "tv": false,
-        "audio": false
-    },
-    {
-        "id": 7,
-        "name": "Tall",
-        "capacity": 8,
-        "tv": true,
-        "audio": false
-    },
-    {
-        "id": 8,
-        "name": "Solsken",
-        "capacity": 9223372036854775807,
-        "tv": false,
-        "audio": false
-    }
+  {
+    "id": 4,
+    "name": "Fjälltopp",
+    "capacity": 3,
+    "tv": false,
+    "audio": false
+  },
+  {
+    "id": 7,
+    "name": "Norrsken",
+    "capacity": 8,
+    "tv": true,
+    "audio": false
+  },
+  {
+    "id": 8,
+    "name": "Storm",
+    "capacity": 12,
+    "tv": true,
+    "audio": true
+  },
+  {
+    "id": 9,
+    "name": "Skymning",
+    "capacity": 10,
+    "tv": true,
+    "audio": true
+  },
+  {
+    "id": 10,
+    "name": "Havsbris",
+    "capacity": 5,
+    "tv": false,
+    "audio": false
+  }
 ]

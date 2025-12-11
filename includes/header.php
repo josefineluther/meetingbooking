@@ -30,7 +30,9 @@ if (isset($_COOKIE['userid'])) {
 <body>
   <header class="app-header" role="banner">
     <div class="app-header__bar">
-      <div class="app-header__title">Mötesbokning</div>
+      <a class="app-header__title" href="/Meetingbooking/dashboard.php">
+        Mötesbokning
+      </a>
 
       <?php if (isset($_COOKIE['userid'])): ?>
         <nav class="app-header__nav" aria-label="Huvudnavigation">

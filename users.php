@@ -63,7 +63,7 @@ $editId = $_GET['edit'] ?? null;
 
 <p>Här kan du lägga till, ta bort eller redigera användare</p>
 
-<div style="display: grid; gap: 100px; grid-template-columns: 1fr 1fr; padding: 50px;">
+<div style="display: grid; gap: 100px; grid-template-columns: 1fr 1fr; padding: 30px;">
     <div>
         <h2>Lägg till användare</h2>
         <form method="post" style="display: flex; flex-direction: column;">
@@ -80,7 +80,7 @@ $editId = $_GET['edit'] ?? null;
         <h2>Användare</h2>
 
         <?php if (isset($_SESSION['success'])): ?>
-            <div style="padding: 10px; background: #efe; border: 1px solid #9f9; border-radius: 6px;margin-bottom: 20px;">
+            <div class="success">
                 <?= $_SESSION['success'] ?>
             </div>
             <?php unset($_SESSION['success']); ?>

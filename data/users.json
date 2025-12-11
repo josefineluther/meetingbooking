@@ -3,5 +3,15 @@
         "id": 1,
         "username": "admin",
         "passwordHash": "$2y$12$HVSachc93QsjcV0Kuqzg9egNjH4Ti7AaAAugtG7DKElQZ8ulNn6yO"
+    },
+    {
+        "id": 3,
+        "username": "Viktor",
+        "passwordHash": "$2y$12$KyXhDOy80XpuWvx13QI4GetUVbZ/Qh0adhHHqt74v1AhDrov03Gtm"
+    },
+    {
+        "id": 4,
+        "username": "Josefine",
+        "passwordHash": "$2y$12$UlIU/HMMooMafkV9P/jAmuSKvpVwqphFVhQipaLUIeKxo1nUytZom"
     }
 ]
